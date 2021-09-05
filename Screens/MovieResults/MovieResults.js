@@ -4,7 +4,9 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { styles } from "./styles";
 import { AntDesign } from "@expo/vector-icons";
 
+// MovieItem to render for each result
 const MovieItem = ({ item, navigation }) => (
+  // We pass the individual movie details as a prop to the MovieDetails component
   <TouchableOpacity onPress={() => navigation.push("Movie Title", { item })}>
     <View style={styles.item}>
       <Text style={styles.title}>{item.title}</Text>
@@ -16,6 +18,7 @@ const MovieItem = ({ item, navigation }) => (
 export const MovieResults = ({ navigation }) => {
   const [moviesObject, setMoviesObject] = useState({});
 
+  // Get the full api/films/ resource when the screen loads, this happens only once
   useEffect(() => {
     const getMoviesFromApi = async () => {
       try {
@@ -29,6 +32,7 @@ export const MovieResults = ({ navigation }) => {
     getMoviesFromApi();
   }, []);
 
+  // Render an item for each movie
   const renderItem = ({ item }) => (
     <MovieItem item={item} navigation={navigation} />
   );

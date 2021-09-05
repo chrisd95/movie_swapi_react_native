@@ -4,7 +4,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { MovieDetails } from "./Screens/MovieDetails/MovieDetails";
 import { MovieResults } from "./Screens/MovieResults/MovieResults";
 
-const MovieSearchStack = createStackNavigator();
+const MovieResultsStack = createStackNavigator();
 
 const titleOptions = {
   headerStyle: {
@@ -20,18 +20,18 @@ const titleOptions = {
 export default () => {
   return (
     <NavigationContainer>
-      <MovieSearchStack.Navigator>
-        <MovieSearchStack.Screen
+      <MovieResultsStack.Navigator>
+        <MovieResultsStack.Screen
           name="Star Wars Movies"
           component={MovieResults}
           options={titleOptions}
         />
-        <MovieSearchStack.Screen
+        <MovieResultsStack.Screen
           name="Movie Title"
           component={MovieDetails}
           options={titleOptions}
         />
-      </MovieSearchStack.Navigator>
+      </MovieResultsStack.Navigator>
     </NavigationContainer>
   );
 };

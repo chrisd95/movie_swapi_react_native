@@ -12,6 +12,7 @@ export const MovieDetails = ({ route, navigation }) => {
 
   const [characterArray, setCharacterArray] = useState([]);
 
+  // Get the list of character names, this happens only once
   useEffect(() => {
     const getCharactersFromApi = async () => {
       try {
@@ -21,6 +22,7 @@ export const MovieDetails = ({ route, navigation }) => {
           item.characters.map(async (url) => {
             let response = await fetch(url);
             let json = await response.json();
+            // "Append" the result to an array
             setCharacterArray((characterArray) => [
               ...characterArray,
               { name: json.name },
