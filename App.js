@@ -1,21 +1,37 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import { MovieDetails } from "./Screens/MovieDetails/MovieDetails";
+import { MovieResults } from "./Screens/MovieResults/MovieResults";
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+const MovieSearchStack = createStackNavigator();
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+const titleOptions = {
+  headerStyle: {
+    backgroundColor: "rgb(216,216,216)",
   },
-});
+  headerTitleAlign: "center",
+  headerTintColor: "rgb(120,142,164)",
+  headerTitleStyle: {
+    fontWeight: "bold",
+  },
+};
+
+export default () => {
+  return (
+    <NavigationContainer>
+      <MovieSearchStack.Navigator>
+        <MovieSearchStack.Screen
+          name="Star Wars Movies"
+          component={MovieResults}
+          options={titleOptions}
+        />
+        <MovieSearchStack.Screen
+          name="Movie Title"
+          component={MovieDetails}
+          options={titleOptions}
+        />
+      </MovieSearchStack.Navigator>
+    </NavigationContainer>
+  );
+};
