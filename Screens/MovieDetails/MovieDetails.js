@@ -15,20 +15,24 @@ export const MovieDetails = ({ route, navigation }) => {
   // Get the list of character names, this happens only once
   useEffect(() => {
     const getCharactersFromApi = async () => {
+      let characterSWAPIFetches = [];
       try {
-        // map was faster than for loop
-        // Looked up from https://dev.to/askrishnapravin/for-loop-vs-map-for-making-multiple-api-calls-3lhd
-        await Promise.all(
-          item.characters.map(async (url) => {
-            let response = await fetch(url);
-            let json = await response.json();
-            // "Append" the result to an array
-            setCharacterArray((characterArray) => [
-              ...characterArray,
-              { name: json.name },
-            ]);
+        Promise.all(
+          item.characters.map((url) => {
+            return new Promise((resolve) => {
+              fetch(url).then((response) => {
+                return new Promise(() => {
+                  response.json().then((jsonRes) => {
+                    characterSWAPIFetches.push({ name: jsonRes.name });
+                    resolve();
+                  });
+                });
+              });
+            });
           })
-        );
+        ).then(() => {
+          setCharacterArray(characterSWAPIFetches);
+        });
       } catch (error) {
         console.error(error);
       }
